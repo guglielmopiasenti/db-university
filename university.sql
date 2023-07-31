@@ -69,3 +69,8 @@ SELECT D.*, C.*, T.* FROM `degrees` AS D JOIN `courses` AS C ON D.`id` = C.`degr
 SELECT DISTINCT T.id, T.name, T.surname, DEP.name FROM `departments` AS DEP JOIN `degrees` AS D ON DEP.`id` = D.`department_id` JOIN `courses` AS C ON D.`id` = C.`degree_id` JOIN `course_teacher` AS CT ON C.`id` = CT.`course_id` JOIN `teachers` AS T ON CT.`teacher_id` = T.`id` WHERE DEP.`name` = 'Dipartimento di Matematica' ORDER BY T.surname;
 
 -- 7. BONUS: Selezionare per ogni studente quanti tentativi d’esame ha sostenuto per superare ciascuno dei suoi esami
+SELECT S.`name`, S.`surname`, COUNT(*) AS `total_attempts`
+FROM `students` AS S 
+JOIN `exam_student` AS ES ON S.`id` = ES.`student_id`
+JOIN `exams` AS E ON ES.`exam_id` = E.`id`
+GROUP BY S.`id`;
